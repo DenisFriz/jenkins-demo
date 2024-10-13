@@ -7,6 +7,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/DenisFriz/jenkins-demo.git'
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    def customImage = docker.build("my-node-app:latest")
+                }
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
