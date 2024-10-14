@@ -1,4 +1,3 @@
-// Jenkinsfile
 pipeline {
     agent any
     stages {
@@ -17,22 +16,43 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                script {
+                    // Run 'npm install' inside the Docker container
+                    customImage.inside {
+                        sh 'npm install'
+                    }
+                }
             }
         }
         stage('Build') {
             steps {
-                echo 'Building...'
+                script {
+                    // Run build steps inside the Docker container
+                    customImage.inside {
+                        echo 'Building...'
+                        // Здесь можно добавить дополнительные команды сборки, если требуется
+                    }
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                script {
+                    // Run tests inside the Docker container
+                    customImage.inside {
+                        echo 'Testing...'
+                        // Здесь можно запустить команды для тестирования
+                    }
+                }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying...'
+                script {
+                    // Run deploy steps inside the Docker container (или вне, если нужно)
+                    echo 'Deploying...'
+                    // В зависимости от вашей логики деплоя, это может быть выполнено внутри или вне контейнера
+                }
             }
         }
     }
