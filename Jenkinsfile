@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'git@github.com:yourusername/jenkins-demo.git'
+                git url: 'git@github.com:DenisFriz/jenkins-demo.git'
             }
         }
         stage('Install Dependencies') {
